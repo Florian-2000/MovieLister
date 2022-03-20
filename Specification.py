@@ -8,8 +8,12 @@ def specification_handler(movie_list, end_list, amount):
     print('Now you can add specific wishes. What do you want to do?')
     while True:
         wish = input(
-            '\"1\" = add specific entry to final list\n\"2\" = delete specific entry from final list\n\"3\" = enter '
-            'maximum length\n\"4\" = enter minimum length\nEverything else = Nothing\n')
+            '\"1\" = add specific entry to final list\n'
+            '\"2\" = delete specific entry from final list\n'
+            '\"3\" = enter maximum length\n'
+            '\"4\" = enter minimum length\n'
+            '\"5\" = enter wished genres\n'
+            'Everything else = Nothing\n')
         if '1' == wish:
             movie_list, end_list = add_specific_entry(movie_list, end_list, amount)
         elif '2' == wish:
@@ -18,6 +22,8 @@ def specification_handler(movie_list, end_list, amount):
             movie_list = create_list_with_maximum_length(movie_list, end_list, amount)
         elif '4' == wish:
             movie_list = create_list_with_minimum_length(movie_list, end_list, amount)
+        elif '5' == wish:
+            movie_list = get_wished_genre(movie_list, amount)
         else:
             break
 
@@ -83,8 +89,8 @@ def delete_specific_entry(end_list):
 # 3. create list with maximum length
 def create_list_with_maximum_length(movie_list, end_list, amount):
     max_length = input('What is the maximum length in minutes?\n(Hint: If you still want to add a movie which is longer'
-                       ' than your wished maximal length then you maybe won\'t be able to this after this.\nPerhaps just'
-                       ' type something very high and come back later.)\n')
+                       ' than your wished maximal length then you maybe won\'t be able to do this after this.\nPerhaps '
+                       'just type something very high and come back later.)\n')
 
     max_length = bring_back_correct_number(max_length)
     if max_length == -1:
@@ -101,7 +107,6 @@ def create_list_with_maximum_length(movie_list, end_list, amount):
             max_length_list.append(movie)
             counter += 1
 
-
     # test if enough movies can be selected to fill the wished amount of movies
     if counter < amount - len(end_list):
         print('This is too low. It is not possible to get the wished amount of movies.\n')
@@ -114,7 +119,7 @@ def create_list_with_maximum_length(movie_list, end_list, amount):
 # 4. create list with minimum length
 def create_list_with_minimum_length(movie_list, end_list, amount):
     min_length = input('What is the minimum length in minutes?\n(Hint: If you still want to add a movie which is '
-                       'shorter than your wished minimal length then you maybe won\'t be able to this after this. '
+                       'shorter than your wished minimal length then you maybe won\'t be able to do this after this. '
                        '\nPerhaps just type something very low (greater than 1) and come back later.)\n')
 
     min_length = bring_back_correct_number(min_length)
@@ -138,6 +143,29 @@ def create_list_with_minimum_length(movie_list, end_list, amount):
 
     print('Updated minimum length')
     return min_length_list
+
+
+# 5. create a list with only wanted genres
+def get_wished_genre(movie_list, amount):
+
+    # list with all wished genre
+    genre_list = []
+
+    while True:
+        wished_genre = input('Which genre do you want to see in your final list?\n')
+        for movie in movie_list:
+            if wished_genre in movie[Read.GENRE_CELL]:
+                genre_list.append(movie)
+
+        is_enough = input('Add another genre? \"1\" = Yes, Everything else = No\n')
+        if is_enough != '1':
+            break
+
+    if len(genre_list) < amount:
+        print('Sorry, but there are not enough movies compared to your wished amount of entries.')
+        return movie_list
+
+    return genre_list
 
 
 # testing to make sure final list is not longer than wished

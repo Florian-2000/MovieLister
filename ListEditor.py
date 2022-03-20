@@ -42,7 +42,7 @@ def asking_entry_amount(entries_amount):
                 print('Seriously why would you want this?')
             # test if user input is higher then actual entries in sheet
             elif amount_int > entries_amount:
-                print('You do not have this much entries in your sheet')
+                print('You do not have this much entries in your sheet.')
             else:
                 break
 

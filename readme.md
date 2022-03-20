@@ -12,6 +12,7 @@ There are some possibilities to edit the list before the final output:
 - Delete an already added entry from the final ouput
 - Enter a maximum movie length
 - Enter a minimum movie length
+- Get only entered genres in your final list
 
 When you see the final output it can be copied to your clipboard automatically.
 
