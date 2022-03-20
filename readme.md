@@ -31,11 +31,12 @@ When you see the final output it can be copied to your clipboard automatically.
   - In line 14: Enter the Google Sheet ID between the quotation marks. You find the ID in the URL: https://docs.google.com/spreadsheets/d/[ID]/edit
   - in line 17: Enter the range the program shall read in this format without the brackets between the quotation marks: 
   [table_name]![first_column][first_line]:[last_column][last_line]
-    - You do need to enter [last_line]. This way, the program will read all entries and does not need to be updated
-  - In line 20: Enter the title column (if it is the first enter 0 and so on)
-  - In line 21: Enter the genre column (if it is the first enter 0 and so on)
-  - In line 22: Enter the length column (if it is the first enter 0 and so on)
-  - In line 23: Enter the checkbox column (if it is the first enter 0 and so on)
+    - The first line equals the first entry (movie)
+    - You do not need to enter [last_line]. This way, the program will read all entries and does not need to be updated
+  - In line 20: Enter the title column (if it is the first column that shall be read, enter 0 and so on)
+  - In line 21: Enter the genre column (if it is the first column that shall be read, enter 0 and so on)
+  - In line 22: Enter the length column (if it is the first column that shall be read, enter 0 and so on)
+  - In line 23: Enter the checkbox column (if it is the first column that shall be read, enter 0 and so on)
 
 # How to use
 You can either use python manually via the command line, use an IDE or create a *.exe file.
