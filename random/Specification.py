@@ -13,6 +13,7 @@ def specification_handler(movie_list, end_list, amount):
             '\"3\" = enter maximum length\n'
             '\"4\" = enter minimum length\n'
             '\"5\" = enter wished genres\n'
+            '\"6\" = update wished amount\n'
             'Everything else = Nothing\n')
         if '1' == wish:
             movie_list, end_list = add_specific_entry(movie_list, end_list, amount)
@@ -24,6 +25,8 @@ def specification_handler(movie_list, end_list, amount):
             movie_list = create_list_with_minimum_length(movie_list, end_list, amount)
         elif '5' == wish:
             movie_list = get_wished_genre(movie_list, amount)
+        elif '6' == wish:
+            amount = update_amount(amount, movie_list, end_list)
         else:
             break
 
@@ -94,7 +97,7 @@ def create_list_with_maximum_length(movie_list, end_list, amount):
 
     max_length = bring_back_correct_number(max_length)
     if max_length == -1:
-        print('Try again. Your input was not real whole positive number.\n')
+        print('Try again. Your input was not a real whole positive number.\n')
         return movie_list
 
     max_length_list = []
@@ -124,7 +127,7 @@ def create_list_with_minimum_length(movie_list, end_list, amount):
 
     min_length = bring_back_correct_number(min_length)
     if min_length == -1:
-        print('Try again. Your input was not real whole positive number.\n')
+        print('Try again. Your input was not a real whole positive number.\n')
         return movie_list
 
     min_length_list = []
@@ -147,25 +150,61 @@ def create_list_with_minimum_length(movie_list, end_list, amount):
 
 # 5. create a list with only wanted genres
 def get_wished_genre(movie_list, amount):
-
     # list with all wished genre
     genre_list = []
 
     while True:
         wished_genre = input('Which genre do you want to see in your final list?\n')
+        genre_exists = False
         for movie in movie_list:
             if wished_genre in movie[Read.GENRE_CELL]:
                 genre_list.append(movie)
+                genre_exists = True
+        if not genre_exists:
+            print('This genre does not exist in the list.')
 
         is_enough = input('Add another genre? \"1\" = Yes, Everything else = No\n')
         if is_enough != '1':
             break
 
     if len(genre_list) < amount:
-        print('Sorry, but there are not enough movies compared to your wished amount of entries.')
+        print('Sorry, but there are not enough movies compared to your wished amount of entries.\n')
         return movie_list
 
+    print('The list was updated.\n')
     return genre_list
+
+
+# 6. update amount of entries for list
+def update_amount(amount, movie_list, end_list):
+
+    print('Currently you want ' + str(amount) + ' movies in your final list.')
+    print('The maximum amount you can enter is ' + str(len(movie_list)))
+
+    if len(end_list) == 0:
+        print('The minimum amount you can enter is ' + str(1))
+    else:
+        print('The minimum amount you can enter is ' + str(len(end_list)))
+
+    new_amount = input('')
+    new_amount = bring_back_correct_number(new_amount)
+    # if new amount is not a useful number
+    if new_amount == -1:
+        print('Try again. Your input was not a real whole positive number.\n')
+        return amount
+
+    # if new amount is too high to get wished amount of entries
+    if len(movie_list) < new_amount:
+        print('This amount is too high.\n')
+        return amount
+
+    # if new amount is too low because of already entered movies
+    if len(end_list) > new_amount:
+        print('This amount is too low.\n')
+        return amount
+
+    print('Your new amount is ' + str(new_amount) + '\n')
+    return new_amount
 
 
 # testing to make sure final list is not longer than wished
@@ -203,9 +242,7 @@ def bring_back_correct_number(input_string):
         if amount_int > 0:
             return amount_int
 
-        # test if positive
-        if amount_int <= 0:
-            return -1
+        return -1
 
     # if input was a negative number or words
     except ValueError:
