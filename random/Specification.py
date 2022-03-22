@@ -44,14 +44,14 @@ def add_specific_entry(movie_list, end_list, amount):
 
     # test if movie is already in final list
     for counter in range(0, len(end_list)):
-        if end_list[counter][Read.TITLE_CELL] == wished_entry.lower():
+        if end_list[counter][Read.TITLE_CELL].lower() == wished_entry.lower():
             print('This movie is already in your list.\n')
             return movie_list, end_list
         counter += 1
 
     # go through entire list with unchecked elements and look if wished_entry is an element
     for counter in range(0, len(movie_list)):
-        if movie_list[counter][Read.TITLE_CELL] == wished_entry.lower() and movie_list[counter] not in end_list:
+        if movie_list[counter][Read.TITLE_CELL].lower() == wished_entry.lower() and movie_list[counter] not in end_list:
             end_list.append(movie_list[counter])
             print('Movie was added to your list.\n')
             return movie_list, end_list
@@ -78,10 +78,11 @@ def delete_specific_entry(end_list):
 
     in_list = False
     for counter in range(0, len(end_list)):
-        if end_list[counter][Read.TITLE_CELL] == wished_entry:
+        if end_list[counter][Read.TITLE_CELL].lower() == wished_entry.lower():
             end_list.remove(end_list[counter])
             print('Movie was deleted from your list.\n')
             in_list = True
+            break
 
     if not in_list:
         print('Sorry, but this is not in your current final list.\n')
@@ -177,7 +178,6 @@ def get_wished_genre(movie_list, amount):
 
 # 6. update amount of entries for list
 def update_amount(amount, movie_list, end_list):
-
     print('Currently you want ' + str(amount) + ' movies in your final list.')
     print('The maximum amount you can enter is ' + str(len(movie_list)))
 
