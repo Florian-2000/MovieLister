@@ -28,7 +28,7 @@ When you see the final output it can be copied to your clipboard automatically.
 
 ## Google Sheet Specifications
 
-- You need four connected columns
+- You need four connected columns in your Google Sheet table
 - In Read.py
   - In line 14: Enter the Google Sheet ID between the quotation marks. You find the ID in the URL: https://docs.google.com/spreadsheets/d/[ID]/edit
   - in line 17: Enter the range the program shall read in this format without the brackets between the quotation marks: 
@@ -41,5 +41,7 @@ When you see the final output it can be copied to your clipboard automatically.
   - In line 23: Enter the checkbox column (if it is the first column that shall be read, enter 0 and so on)
 
 # How to use
+Before you can execute the real program the first time you need to execute setup.py which will install the necessary modules. 
+
 You can either use python manually via the command line, use an IDE or create a *.exe file.
 Make sure there is always a correct version of key.json, otherwise it will not work.
